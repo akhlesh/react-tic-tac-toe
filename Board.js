@@ -5,9 +5,12 @@ import calculateWinner from './util';
 
 
 export default function Board(props) {
+  const indices= props.winningIndices;
   function renderSquare(i) {
-    return <Square value={props.squares[i]} onClick={()=>props.onClick(i)} />;
+    const className = indices && indices.includes(i) ? 'btn btn-success' : 'btn btn-default';
+    return <Square className={className} value={props.squares[i]} onClick={()=>props.onClick(i)} />;
   }
+  
 
   return (
     <div>

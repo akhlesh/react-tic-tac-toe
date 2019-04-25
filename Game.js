@@ -7,16 +7,17 @@ export default function Game() {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [xIsNext, setXIsNext] = useState(true);
   const current = history[history.length - 1];;
-  const winner = calculateWinner(current.squares);
-  const status = winner ? `Winner: ${winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
+  const result = calculateWinner(current.squares);
+  const status = result ? `Winner: ${result.winner}` : `Next player: ${xIsNext ? 'X' : 'O'}`;
   const moves = history.map((step, move) => {
     const desc = move ?
       'Go to move #' + move :
       'Go to game start';
+    const isCurrent = current === step;  
     const rowColDes = step.location ? `(${step.location.row}, ${step.location.col})` : '';  
     return (
-      <li>
-        <button onClick={() => jumpTo(move)}>{desc}  {rowColDes}</button>
+      <li className="list-group-item" key={move}>
+        <button  className={`${isCurrent ? 'btn-primary': 'btn-deafult'} btn`} onClick={() => jumpTo(move)}>{desc}  {rowColDes}</button>
       </li>
     );
   });
@@ -48,15 +49,16 @@ export default function Game() {
   }
   console.log('rendering');
   return (
-    <div className="game">
-      <div className="game-board">
+    <div className="game row">
+      <div className="game-board col-md-8">
         <Board squares={current.squares}
           onClick={(i) => handleClick(i)}
+          winningIndices={result && result.indices}
         />
       </div>
-      <div className="game-info">
+      <div className="game-info col-md-4">
         <div>{status}</div>
-        <ol>{moves}</ol>
+        <ol className="list-group">{moves}</ol>
       </div>    
     </div>
   );
