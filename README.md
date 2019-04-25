@@ -1,3 +1,3 @@
 # react-bidsxm
 
-[StackBlitz ⚡️](https://react-bidsxm.stackblitz.io)
+[StackBlitz ⚡️](https://stackblitz.com/edit/react-bidsxm?embed=1&file=index.js)
